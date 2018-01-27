@@ -45,7 +45,7 @@ module.exports = {
 	deleteList: function(req,res){
 		var listid = req.params.id;
 
-		List.remove({'_id': listid}m function(err, result){
+		List.remove({'_id': listid}, function(err, result){
 			if(err){
 				console.log("mongo deleteOne list err: ", err);
 				helper.sendError(err, req, res);
@@ -54,18 +54,82 @@ module.exports = {
 			}
 		});
 	},
-	
+
 	// getOneList method
-	
+	getOneList: function(req,res){
+		var listid = req.params.id;
+
+		List.findOne({'_id':listid}, function(err, list) {
+			if(err) {
+				console.log("mongo getOneList err: ", err);
+				helper.sendError(err, req, res);
+			} else {
+				if(!list){
+					helper.sendError("List not found", req, res);
+				} else {
+					res.json(list);
+				}
+			}
+		});
+	},
+
 	// getListts method
+	getLists: function(req, res) {
+		// var userid = req.body.userid;
+
+		// temporarily passing through url
+		var userid = req.params.id;
+
+		List.find({'creator_id':userid})
+			.then(function(lists){
+				res.json(lists);
+			});
+	},
 
 	// getAllLists method
+	getAllLists: function(req, res) {
+		List.find({})
+			.then(function(lists){
+				res.json(lists);
+			})
+	},
 
 	// getJobs method
+	getJobs: function(req,res){
+		var userid: '786'+ req.params.id;
+		console.log('$$$$$$$$$$');
+		List.find({'deliverer_id':userid})
+			.then(function(lists){
+				res.json(lists);
+			});
+	},
 
 	// updateJobStatus method
+	updateJobStatus: function(req,res) {
+		// TODO: Fill out
+	},
 
 	// updateStatus method
+	updateStatus: function(req, res){
+		var listid = req.body.listid;
+		var userid = req.body.userid;
 
-
-}
+		List.findOne({'_id':listid}, function(err, list){
+			if(err){
+				console.log("mondo findOne list err: ", err);
+			} else {
+				if(!list){
+					helper.sendError("List not found", req, res);
+				} else {
+					List.update({'_id':listid}, {'deliverer_id':userid}, function(err, result){
+						if(err){
+							console.log("mongo update err: ", err);
+						} else {
+							res.json(result);
+						}
+					});
+				}
+			}
+		});
+	}
+};
