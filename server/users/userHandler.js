@@ -62,7 +62,7 @@ module.exports = {
 							var token = jwt.encode(user, 'secret');
 							res.json({
 								token: token,
-								userid; user['_id']
+								userid: user['_id']
 							});
 						}
 					});
