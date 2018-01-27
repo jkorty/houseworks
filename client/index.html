@@ -1,10 +1,25 @@
-<!DOCTYPE html>
+<html ng-app="houseworks">
 <html>
 <head>
 	<title>HouseWorks</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<h1>Testing</h1>
-	<p>Trying to learn how to set this up.</p>
+<body ng-controller="AppController">
+	<div class="top-nav">
+		<div class="top-logo"><img src="" alt=""></div>
+		<div class="top-nav-left">
+			<span><a href="#/myLists" class="btn btn-primary btn-lg top-nav-button">My Lists</a></span>
+			<span><a href="#/allLists" class="btn btn-primary btn-lg top-nav-button">All Lists</a></span>
+			<span><a href="#/myJobs" class="btn btn-primary btn-lg top-nav-button">My Jobs</a></span>
+		</div>
+		<div class="top-nav-right" ng-if="hasSession">
+			<span><a ng-click="signout()" href="#/logout" class="btn pull-right btn-primary btn-default">Logout</a></span>
+		</div>
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+	
 </body>
 </html>
